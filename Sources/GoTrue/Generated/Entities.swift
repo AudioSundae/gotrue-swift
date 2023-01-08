@@ -235,7 +235,6 @@ public struct User: Codable, Equatable {
   public var lastSignInAt: Date?
   public var role: String?
   public var updatedAt: Date
-  public var identities: [UserIdentity]?
 
   public init(
     id: UUID,
@@ -256,8 +255,7 @@ public struct User: Codable, Equatable {
     phoneConfirmedAt: Date? = nil,
     lastSignInAt: Date? = nil,
     role: String? = nil,
-    updatedAt: Date,
-    identities: [UserIdentity]? = nil
+    updatedAt: Date
   ) {
     self.id = id
     self.appMetadata = appMetadata
@@ -278,7 +276,6 @@ public struct User: Codable, Equatable {
     self.lastSignInAt = lastSignInAt
     self.role = role
     self.updatedAt = updatedAt
-    self.identities = identities
   }
 
   public init(from decoder: Decoder) throws {
@@ -302,7 +299,6 @@ public struct User: Codable, Equatable {
     lastSignInAt = try values.decodeIfPresent(Date.self, forKey: "last_sign_in_at")
     role = try values.decodeIfPresent(String.self, forKey: "role")
     updatedAt = try values.decode(Date.self, forKey: "updated_at")
-    identities = try values.decodeIfPresent([UserIdentity].self, forKey: "identities")
   }
 
   public func encode(to encoder: Encoder) throws {
@@ -326,7 +322,6 @@ public struct User: Codable, Equatable {
     try values.encodeIfPresent(lastSignInAt, forKey: "last_sign_in_at")
     try values.encodeIfPresent(role, forKey: "role")
     try values.encode(updatedAt, forKey: "updated_at")
-    try values.encodeIfPresent(identities, forKey: "identities")
   }
 }
 
